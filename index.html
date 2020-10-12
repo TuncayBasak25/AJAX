@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+
+
+    <div>
+     <h2>Bien, tu veut reviser entre un chiffre on va t'aider</h2>
+     <form action="multiplication.php" method="POST">
+         <input id="nombre" type="number" name="nombre" checked/>
+     </form>
+     <button id="" onclick="myAjaxFunction()">Réviser</button><br /> <!--Je ne submit plus le formulaire car on vas faire une requete ajax, donc j'appele la fonction 'onclick'-->
+     </div>
+     <div id="table">
+       <!-- C'est ici qu'on ecrit la reponse ajax -->
+     </div>
+
+     <script>
+      function myAjaxFunction ()
+      {
+        let ajax = new XMLHttpRequest();
+
+        let nombre = document.getElementById('nombre').value //On vas chercher la valeur de l'input avec l'id nombre
+
+        ajax.open("GET", 'multiplication.php?nombre=' + nombre); //On vas faire une requete GET et on passe en parametre la variable nombre avec: ?nombre=... et on concatene la valeur trouvée
+
+        ajax.onload = myAjaxCallBack; //La fonction qu'ajax execute une fois qu'il a la reponse, c'est une fonction qu'on vas créer en bas
+        ajax.send(); //On envoit la requete ajax
+      }
+
+      function myAjaxCallBack()
+      {
+        let response = this.response; // Dans une fonction de callback ajax this.response est la reponse du serveur
+
+        let div = document.getElementById('table'); //On vas aller chercher la div pour notre table
+
+        div.innerHTML = response; //On écrit la reponse qu'on a reçu dans le contenue html de la div
+      }
+     </script>
+
+
+
+
+</body>
+</html>
